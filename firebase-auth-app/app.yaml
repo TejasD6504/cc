@@ -1,11 +1,12 @@
-runtime: python39
-entrypoint: gunicorn -b :$PORT main:app
+runtime: python311
 
 handlers:
-- url: /
-  static_files: index.html
-  upload: index.html
+  # Serve the main page
+  - url: /
+    static_files: index.html
+    upload: index.html
 
-- url: /(.*)
-  static_files: \1
-  upload: .*
+  # Serve all other static files (CSS, JS, images, etc.)
+  - url: /(.*)
+    static_files: \1
+    upload: (.*)
